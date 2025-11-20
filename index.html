@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UMA Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    /* Simple styling so the button looks nice */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+
+    #openPageBtn {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Open Dynamic Link</h1>
+
+  <button id="openPageBtn">Open Page</button>
+
+  <script>
+    // 1) Your constant/base link (this never changes in your code/HTML)
+    // Example:
+    //   https://my-site.com/main?redirect=
+    // Replace this with your real constant link:
+    const baseLink = "https://my-site.com/main?redirect=";
+
+    // 2) Function that returns the changing link
+    // You update the logic here however you want.
+    function getChangingLink() {
+      // OPTION A: you manually update this string every day:
+      // return "https://othersite.com/today/12345";
+
+      // OPTION B (example): if the link is based on today's date
+      // like: https://othersite.com/2025-11-20
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+
+      // Replace this pattern with the real pattern of your daily link:
+      const dynamicLink = `https://othersite.com/${year}-${month}-${day}`;
+      return dynamicLink;
+    }
+
+    // 3) When the button is clicked, build the final URL and open it
+    document.getElementById("openPageBtn").addEventListener("click", function () {
+      const changingLink = getChangingLink();
+
+      // Add the changing link to the base link (URL-encoded)
+      const finalUrl = baseLink + encodeURIComponent(changingLink);
+
+      // Open in a new tab. Use "_self" instead if you want same tab.
+      window.open(finalUrl, "_blank");
+    });
+  </script>
+
+</body>
+</html>
